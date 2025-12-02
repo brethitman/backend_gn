@@ -1,8 +1,8 @@
 node_modules
 npm-debug.log
+Dockerfile
+docker-compose.yml
 .git
 .gitignore
-src
-.env
-Dockerfile
-docker-compose*
+dist.zip
+backend.zip
