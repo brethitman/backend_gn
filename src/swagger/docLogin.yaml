@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: API de Autenticación
+  description: Documentación de la API (login) con ejemplo real de request/response.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local
+tags:
+  - name: Autenticación
+    description: Endpoints de autenticación
+
+paths:
+  /api/v1/autenticacion/login:
+    post:
+      tags: [Autenticación]
+      summary: Iniciar sesión
+      description: Valida credenciales y retorna JWT y datos del usuario.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              ejemploValido:
+                summary: Credenciales válidas
+                value:
+                  correo: "ana.jaldin@gmail.com"
+                  contrasena: "Ana#2025"
+      responses:
+        '200':
+          description: Inicio de sesión exitoso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginSuccessResponse'
+              examples:
+                ejemploExitoso:
+                  summary: Respuesta con token y usuario
+                  value:
+                    ok: true
+                    mensaje: "Inicio de sesión exitoso"
+                    datos:
+                      usuario:
+                        id: "1"
+                        nombre: "Ana Belén Jaldín"
+                        correo: "ana.jaldin@gmail.com"
+                        rol: "estudiante"
+                      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sIjoiZXN0dWRpYW50ZSIsImNvcnJlbyI6ImFuYS5qYWxkaW5AZ21haWwuY29tIiwiaWF0IjoxNzU5OTMwMzM2LCJleHAiOjE3NTk5NTkxMzZ9.ocnPEsy-4v6w5jHnkBaMtEL5EJhzwt51iZVzIY--2eM"
+        '401':
+          description: Credenciales inválidas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                ejemploError:
+                  value:
+                    ok: false
+                    mensaje: "Credenciales inválidas"
+                    codigo: "AUTH_INVALID_CREDENTIALS"
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      required: [correo, contrasena]
+      properties:
+        correo:
+          type: string
+          format: email
+          example: "ana.jaldin@gmail.com"
+        contrasena:
+          type: string
+          example: "Ana#2025"
+
+    LoginSuccessResponse:
+      type: object
+      required: [ok, mensaje, datos]
+      properties:
+        ok:
+          type: boolean
+          example: true
+        mensaje:
+          type: string
+          example: "Inicio de sesión exitoso"
+        datos:
+          type: object
+          required: [usuario, token]
+          properties:
+            usuario:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "1"
+                nombre:
+                  type: string
+                  example: "Ana Belén Jaldín"
+                correo:
+                  type: string
+                  format: email
+                  example: "ana.jaldin@gmail.com"
+                rol:
+                  type: string
+                  example: "estudiante"
+            token:
+              type: string
+              description: JWT de acceso
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    ErrorResponse:
+      type: object
+      required: [ok, mensaje, codigo]
+      properties:
+        ok:
+          type: boolean
+          example: false
+        mensaje:
+          type: string
+          example: "Credenciales inválidas"
+        codigo:
+          type: string
+          example: "AUTH_INVALID_CREDENTIALS"

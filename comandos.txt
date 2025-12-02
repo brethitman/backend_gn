@@ -1,0 +1,8 @@
+para hacer correr el servidor = npm  run dev 
+para ejecutar eslimt =  npm run lint:fix
+
+
+npm run lint → solo revisa y te muestra problemas.
+
+npm run lint:fix → revisa y corrige automáticamente lo que puede.
+

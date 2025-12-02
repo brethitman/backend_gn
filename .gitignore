@@ -1,0 +1,6 @@
+# .gitignore
+.env
+*.env
+.env.*
+BACKEND_GS/.env
+BACKEND_GS/.env
