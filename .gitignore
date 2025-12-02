@@ -1,6 +1,34 @@
-# .gitignore
+# Dependencias
+node_modules/
+
+# Archivos sensibles
 .env
-*.env
-.env.*
-BACKEND_GS/.env
-BACKEND_GS/.env
+
+# Archivos de logs
+npm-debug.log
+yarn-error.log
+
+# Build outputs innecesarios
+*.zip
+backend.zip
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Cache
+.cache/
+.tmp/
+
+# Carpetas que no deben subirse
+dist/
+# (OPCIONAL: si usas Dockerfile que compila dist,
+# pero en tu caso dist sí debe subirse)
+
+# Editor configs
+.vscode/
+.idea/
+
+# Docker
+docker-compose*
+*.tar
