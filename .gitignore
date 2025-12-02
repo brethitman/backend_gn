@@ -33,5 +33,6 @@ dist/
 docker-compose*
 *.tar
 
+
 #psql 'postgresql://neondb_owner:npg_kfwNOI9l7Sov@ep-tiny-salad-ah14b14k-pooler.c-3.us-east-1.aws.neon.tech/umss?sslmode=require&channel_binding=require'
 
